@@ -1,39 +1,33 @@
-//Valid Parantheses
+//Valid Parantheses -> refrenced..
 
-var isValid = function (s) {
-  let obj = {
-    "(": ")",
-    "{": "}",
-    "[": "]",
-  };
+var isValid = function (inputString) {
+    // Initialise an array to store the closing brackets expected
+    let expectedBrackets = [];
 
-  for (let i = 0; i < s.length; i++) {
-    let flag = 0;
-    if (
-      Object.keys(obj).includes(s[i]) &&
-      s[i + 1] !== obj[s[i + 1]] &&
-      Object.values(obj).includes(s[i + 1])
-    ) {
-      return false;
-    }
-    if (Object.keys(obj).includes(s[i])) {
-      for (let j = i + 1; j < s.length; j++) {
-        // console.log(s[j], obj[s[i]]);
-        if (s[j] === obj[s[i]]) {
-          flag = 1;
-          break;
+    // Loop through the letters in the input string
+    for (let letter = 0; letter < inputString.length; letter++) {
+        // Push the closing equivelant of any open brackets found
+        if (inputString[letter] == '{') {
+            expectedBrackets.push('}');
+        } else if (inputString[letter] == '[') {
+            expectedBrackets.push(']');
+        } else if (inputString[letter] == '(') {
+            expectedBrackets.push(')');
         }
-      }
-      if (flag === 0) {
-        return false;
-      }
+        // If a close bracket is found, check that it matches the last stored open bracket
+        else if (expectedBrackets.pop() !== inputString[letter]) {
+            return false;
+        }
     }
-  }
-  return true;
+
+    // Return based on whether or not anything remains
+    // (indicates that there were incorrect brackets)
+    return !expectedBrackets.length;
 };
+console.log(isValid("]"));
 
 // console.log(isValid("()"));
 // console.log(isValid("()[]{}"));
 // console.log(isValid("(]"));
-console.log(isValid("{()}"));
+// console.log(isValid("{()}"));
 // console.log(isValid("([)]"));

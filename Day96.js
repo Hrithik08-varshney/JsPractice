@@ -1,32 +1,37 @@
-//Remove Letter To Equalize Frequency
+//remove letter to equalize frequency
 
-var equalFrequency = function (word) {
-  let obj = {};
-  for (let i = 0; i < word.length; i++) {
-    if (!Object.keys(obj).includes(word[i])) {
-      obj[word[i]] = 1;
-    } else {
-      obj[word[i]]++;
-    }
+function equalFrequency(word) {
+  const charFrequency = new Array(26).fill(0);
+
+  for (const char of word) {
+      charFrequency[char.charCodeAt(0) - 'a'.charCodeAt(0)]++;
   }
-  let flag = false;
-  for (let key in obj) {
-    let newVal = obj[key] - 1;
-    let newObj = { ...obj, key: newVal };
-    let frequencyArr = Object.values(newObj);
-    let unique = false;
-    for (let i = 1; i < frequencyArr.length; i++) {
-      if (frequencyArr[0] !== frequencyArr[i]) {
-        unique = true;
+
+  for (let i = 0; i < 26; ++i) {
+      if (charFrequency[i]) {
+          charFrequency[i]--;
+
+          let commonFrequency = 0;
+          let allFrequenciesEqual = true;
+
+          for (const frequency of charFrequency) {
+              if (frequency === 0) {
+                  continue;
+              }
+              if (commonFrequency && frequency !== commonFrequency) {
+                  allFrequenciesEqual = false;
+                  break;
+              }
+              commonFrequency = frequency;
+          }
+
+          if (allFrequenciesEqual) {
+              return true;
+          }
+          charFrequency[i]++;
       }
-    }
-    if (unique) continue;
   }
-  if (!flag) return true;
   return false;
-};
+}
 
-// console.log(equalFrequency("abcc"));
-console.log(equalFrequency("aazz"));
-// console.log(equalFrequency("cccaa"));
-// console.log(equalFrequency("abbcc"));
+console.log(equalFrequency("cccaa"));

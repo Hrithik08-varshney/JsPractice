@@ -39,4 +39,17 @@ class LinkedList {
     current.next = newNode;
   }
 
+   //to check size of linked list
+
+   size() {
+    let count = 0;
+    let current = this.head;
+    while (current.next) {
+      count++;
+      current = current.next;
+    }
+    this.size = count;
+    return count;
+  }
+
 }

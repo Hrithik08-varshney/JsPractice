@@ -52,4 +52,18 @@ class LinkedList {
     return count;
   }
 
+  //to insert element at any particular index
+
+  // addAt(index, data) {
+  //   if (index < 0 || index > this.size()) {
+  //     console.error("Invalid index");
+  //     return;
+  //   }
+  //   const newNode = new Node(data);
+  //   if (index === 0) {
+  //     newNode.next = this.head;
+  //     this.head = newNode;
+  //     return;
+  //   }
+
 }

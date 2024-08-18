@@ -74,3 +74,10 @@ class LinkedList {
   }
 
 }
+
+LinkedList.addFirst(45);
+LinkedList.addFirst(50);
+LinkedList.addFirst(60);
+LinkedList.addFirst(70);
+
+

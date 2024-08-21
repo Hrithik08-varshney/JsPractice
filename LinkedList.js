@@ -10,7 +10,6 @@ class Node {
 class LinkedList {
   constructor() {
     this.head = null;
-    this.size = 0;
   }
 
   //to add an element to first
@@ -21,7 +20,6 @@ class LinkedList {
     this.head = newNode;
   }
 
-  
   //to add an element to last
 
   addLast(data) {
@@ -39,16 +37,15 @@ class LinkedList {
     current.next = newNode;
   }
 
-   //to check size of linked list
+  //to check size of linked list
 
-   size() {
-    let count = 0;
+  size() {
+    let count = 1;
     let current = this.head;
     while (current.next) {
       count++;
       current = current.next;
     }
-    this.size = count;
     return count;
   }
 
@@ -73,11 +70,67 @@ class LinkedList {
     current.next = newNode;
   }
 
+  //remove an element from top of linked list
+
+  removeTop() {
+    if (!this.head) {
+      return;
+    }
+
+    this.head = this.head.next;
+  }
+
+  //remove element from last
+
+  removeLast() {
+    if (!this.head) {
+      return;
+    }
+    let current = this.head;
+    while (current.next.next) {
+      current = current.next;
+    }
+
+    current.next = null;
+  }
+
+  //remove element from certain index
+
+  removeAt(index) {
+    if (index < 0 || index > this.size()) {
+      console.error("Invalid index");
+      return;
+    }
+    if (index === 0) {
+      this.head = this.head.next;
+      return;
+    }
+    let current = this.head;
+    for (let i = 0; i < index - 1; i++) {
+      current = current.next;
+    }
+    if (current.next) {
+      current.next = current.next.next;
+    }
+  }
+
+  //print the linked list
+
+  print() {
+    let current = this.head;
+    while (current) {
+      console.log(current.data);
+      current = current.next;
+    }
+  }
 }
 
-LinkedList.addFirst(45);
-LinkedList.addFirst(50);
-LinkedList.addFirst(60);
-LinkedList.addFirst(70);
+const linkedList = new LinkedList();
 
-
+linkedList.addFirst(5);
+linkedList.addFirst(3);
+linkedList.addFirst(8);
+linkedList.addLast(6);
+linkedList.removeTop();
+linkedList.print();
+console.log("size=", linkedList.size());
